@@ -1,13 +1,13 @@
 /** Copyright Redline13, LLC */
 
 // Require http
-var http = require("http");
+var https = require("https");
 
 /** Reline13 Map API */
 function Redline13MapApi(mapId, key) {
 	this.mapId = mapId;
 	this.key = key;
-	this.host = "localhost";
+	this.host = "realtimemapapi.redline13.com";
 	this.port = 4434;
 }
 
@@ -32,7 +32,7 @@ Redline13MapApi.prototype.sendPoints = function(points, callback)
 			'Content-Length': postData.length
 		}
 	};
-	var postReq = http.request(postOpts, function(res) {
+	var postReq = https.request(postOpts, function(res) {
 		res.setEncoding('utf8');
 		var respStr = "";
 		res.on('data', function (chunk) {
@@ -43,7 +43,7 @@ Redline13MapApi.prototype.sendPoints = function(points, callback)
 			
 			// Call callback
 			if (callback)
-				callback.call(that, null);
+				callback.call(that, respStr === "true" ? null : ("Response: " + respStr));
 		});
 	});
 	// Handle error
