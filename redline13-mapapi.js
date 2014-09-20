@@ -7,7 +7,7 @@ var https = require("https");
 function Redline13MapApi(mapId, key) {
 	this.mapId = mapId;
 	this.key = key;
-	this.host = "realtimemapapi.redline13.com";
+	this.host = "realtimemapapi.com";
 	this.port = 4434;
 }
 
