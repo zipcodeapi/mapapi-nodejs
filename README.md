@@ -1,4 +1,4 @@
 mapapi-nodejs
 =============
 
-Node.js client for RedLine13 Real-Time Map API: https://realtimemapapi.com
+Node.js client for ZipCodeAPI Real-Time Map API: https://realtimemapapi.com

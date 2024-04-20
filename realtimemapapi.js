@@ -1,10 +1,10 @@
-/** Copyright Redline13, LLC */
+/** Copyright: FastZip, LLC */
 
 // Require http
 var https = require("https");
 
-/** Reline13 Map API */
-function Redline13MapApi(mapId, key) {
+/** Real Time Map API */
+function RealTimeMapApi(mapId, key) {
 	this.mapId = mapId;
 	this.key = key;
 	this.host = "realtimemapapi.com";
@@ -12,10 +12,10 @@ function Redline13MapApi(mapId, key) {
 }
 
 /** Send points */
-Redline13MapApi.prototype.sendPoints = function(points, callback)
+RealTimeMapApi.prototype.sendPoints = function(points, callback)
 {
 	var that = this;
-	
+
 	// Send POST request
 	var postData = JSON.stringify({
 		mapId: this.mapId,
@@ -40,7 +40,7 @@ Redline13MapApi.prototype.sendPoints = function(points, callback)
 		});
 		res.on('data', function (chunk) {
 			//console.log('Response: ' + respStr);
-			
+
 			// Call callback
 			if (callback)
 				callback.call(that, respStr === "true" ? null : ("Response: " + respStr));
@@ -49,14 +49,14 @@ Redline13MapApi.prototype.sendPoints = function(points, callback)
 	// Handle error
 	postReq.on("error", function(err) {
 		console.log(err);
-		
+
 		// Call callback
 		if (callback)
 			callback.call(that, err);
 	});
 	// Set 10 second timeout
 	postReq.on('socket', function (socket) {
-		socket.setTimeout(10000);  
+		socket.setTimeout(10000);
 		socket.on('timeout', function() {
 			postReq.abort();
 		});
@@ -65,4 +65,4 @@ Redline13MapApi.prototype.sendPoints = function(points, callback)
 	postReq.end();
 };
 
-module.exports = Redline13MapApi;
+module.exports = RealTimeMapApi;
